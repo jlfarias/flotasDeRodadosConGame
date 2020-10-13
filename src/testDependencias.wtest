@@ -1,0 +1,79 @@
+
+import rodados.*
+import dependencias.*
+
+test "DEPENDENCIAS" {
+	// DEPENDENCIA DEPORTES
+	const deportes = new Dependencia()
+	deportes.setCantEmpleados(45)
+	
+	const cachito = new Corsa(color = rojo)
+	deportes.agregarAFlota(cachito)
+	
+	const corsa1 = new Corsa(color = azul)
+	deportes.agregarAFlota(corsa1)
+	
+	const corsa2 = new Corsa(color = verde)
+	deportes.agregarAFlota(corsa2)
+	
+	const kwid1 = new Kwid()
+	kwid1.tanqueAdicional(true)
+	deportes.agregarAFlota(kwid1)
+	
+	const kwid2 = new Kwid()
+	deportes.agregarAFlota(kwid2)
+	
+	const especial = new AutoEspecial(
+	capacidad = 5, peso = 1200, color = beige, velMax = 160 )
+	deportes.agregarAFlota(especial)
+	
+	
+	// DEPENDENCIA CULTURA
+	const cultura = new Dependencia()
+	cultura.setCantEmpleados(31)
+
+	const kwid3 = new Kwid(tanqueAdicional = true)
+	cultura.agregarAFlota(kwid3)
+	
+	const kwid4 = new Kwid(tanqueAdicional = true)
+	cultura.agregarAFlota(kwid4)
+	
+	const kwid5 = new Kwid(tanqueAdicional = false)
+	cultura.agregarAFlota(kwid5)
+	
+	traffic.setmotor(batata)
+	traffic.setInterior(popular)
+	cultura.agregarAFlota(traffic)
+	
+	// TEST DEPORTES
+	// 1350 + 1200 + (3*1300) + 1200 PESO TOTAL FLOTA
+	assert.equals(7650, deportes.pesoTotalFlota()) 
+	// ESTA BIEN EQUIPADA 
+	assert.equals(true, deportes.estaBienEquipada())
+	// CAPACITAD TOTAL COLOR AZUL - LOS 2 KWID SON AZUL, MAS CORSA (11)
+	assert.equals(11, deportes.capacidadTotalEnColor(azul) )
+	// COLOR RODADO MAS RAPIDO (BEIGE)
+	assert.equals(beige, deportes.colorDelRodadoMasRapido())
+	// ES GRANDE
+	assert.equals(true, deportes.esGrande())	
+	// CAPACIDAD FALTANTE 45 -CORSA 12 KWID 3 Y 4 ESPECIA 5
+	assert.equals(21, deportes.capacidadFaltante())
+	
+	deportes.quitarDeFlota(cachito)
+	cultura.agregarAFlota(cachito)
+	
+	// TEST CULTURA
+	// 2 * 1350 + 1200 + 5200 + (CORSA 1300) PESO TOTAL FLOTA
+	assert.equals(10400, cultura.pesoTotalFlota()) 
+	// ESTA BIEN EQUIPADA FALSE- LA TRAFFIC VA A 80
+	assert.equals(false, cultura.estaBienEquipada())
+	// CAPACITAD TOTAL COLOR AZUL - LOS 2 KWID SON AZUL, MAS CORSA (11)
+	assert.equals(4, cultura.capacidadTotalEnColor(rojo) )
+	// COLOR RODADO MAS RAPIDO
+	assert.equals(rojo, cultura.colorDelRodadoMasRapido())
+	// NO ES GRANDE
+	assert.equals(false, cultura.esGrande())	
+	// CAPACIDAD FALTANTE 31 cachito 4 KWID 3+3+4 Y TRAFIC 12
+	assert.equals(4, cultura.capacidadFaltante())
+	
+}

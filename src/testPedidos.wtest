@@ -1,0 +1,15 @@
+import rodados.*
+import pedidos.*
+
+test "testPedido" {
+
+	const cachito = new Corsa(color = rojo)
+	
+	const pedido1 = new Pedido(distancia = 960, tiempoMax = 8, cantPasajeros = 4, colores=[azul, negro])
+	const pedido2 = new Pedido(distancia = 960, tiempoMax = 8, cantPasajeros = 4, colores=[azul, negro, rojo])
+	const pedido3 = new Pedido(distancia = 960, tiempoMax = 6, cantPasajeros = 4, colores=[azul, negro])
+	
+	assert.equals(true, pedido1.autoSatisfacePedido(cachito))
+	assert.equals(false, pedido2.autoSatisfacePedido(cachito))
+	assert.equals(false, pedido3.autoSatisfacePedido(cachito))
+}
